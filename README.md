@@ -27,7 +27,7 @@
 ## 🚀 快速启动
 ```bash
 # 克隆仓库到本地
-git clone https://github.com/你的用户名/Internship-Tracker.git
+git clone https://github.com/CherryTang123/Internship-Tracker.git
 
 # 进入项目目录
 cd Internship-Tracker
