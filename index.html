@@ -1007,6 +1007,334 @@
     h1 { font-size: 23px; }
     .legend { grid-template-columns: 1fr; }
   }
+  /* ---------- Tracker Plus additions ---------- */
+  .stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 14px;
+  }
+  .stat { padding: 14px 16px 13px; }
+
+  /* Timeline */
+  .timeline-card { margin-bottom: 16px; padding-top: 15px; overflow: hidden; }
+  .timeline-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 0 18px 12px;
+  }
+  .timeline-title h2 { margin: 0; font-size: 15px; font-weight: 650; letter-spacing: -.01em; }
+  .timeline-title p { margin: 4px 0 0; color: var(--muted); font-size: 11.5px; }
+  .timeline-controls { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+  .timeline-range {
+    margin-right: 4px;
+    color: var(--muted);
+    font-size: 11.5px;
+    font-variant-numeric: tabular-nums;
+  }
+  .tl-nav {
+    height: 29px;
+    min-width: 29px;
+    padding: 0 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: #fff;
+    color: var(--muted);
+    font-size: 11.5px;
+    transition: background .12s, border-color .12s, color .12s;
+  }
+  .tl-nav:hover { background: #f7f8fb; border-color: var(--border-strong); color: var(--text-2); }
+  .tl-today { padding: 0 9px; }
+  .timeline-scroll { overflow-x: auto; scrollbar-width: thin; }
+  .timeline-scroll::-webkit-scrollbar { height: 6px; }
+  .timeline-scroll::-webkit-scrollbar-thumb { background: #e1e4eb; border-radius: 3px; }
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(14, minmax(74px, 1fr));
+    min-width: 1040px;
+    border-top: 1px solid var(--border-soft);
+  }
+  .tl-day {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-height: 110px;
+    padding: 9px 10px 10px;
+    border: 0;
+    border-left: 1px solid var(--border-soft);
+    border-radius: 0;
+    background: #fff;
+    color: var(--text-2);
+    text-align: left;
+    transition: background .12s;
+  }
+  .tl-day:first-child { border-left: 0; }
+  .tl-day:hover { background: #f7f8fc; }
+  .tl-day.weekend .tl-week { color: #b0b5c2; }
+  .tl-day.today { background: #f4f3ff; box-shadow: inset 0 -2px 0 var(--accent); }
+  .tl-day.today:hover { background: #eeeefe; }
+  .tl-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    color: var(--muted);
+    font-size: 10px;
+  }
+  .tl-week { letter-spacing: .02em; }
+  .tl-month { color: #b3b8c4; font-size: 9.5px; }
+  .tl-num {
+    color: var(--text);
+    font-size: 19px;
+    font-weight: 650;
+    letter-spacing: -.02em;
+    line-height: 1.25;
+    font-variant-numeric: tabular-nums;
+  }
+  .tl-day.today .tl-num {
+    width: 27px;
+    height: 27px;
+    margin: 1px 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 14px;
+  }
+  .tl-events {
+    margin-top: auto;
+    min-height: 31px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 3px;
+  }
+  .tl-dots { display: flex; align-items: center; gap: 3px; height: 8px; }
+  .tl-dot { width: 6px; height: 6px; border-radius: 50%; }
+  .tl-more { color: var(--muted); font-size: 9px; line-height: 1; }
+  .tl-sum {
+    color: var(--text-2);
+    font-size: 10px;
+    line-height: 1.35;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tl-sum-empty { color: #b6bbc7; }
+  .tl-plus {
+    position: absolute;
+    top: 7px;
+    right: 8px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity .12s;
+  }
+  .tl-day:hover .tl-plus { opacity: .8; }
+  .timeline-foot {
+    padding: 9px 18px 12px;
+    border-top: 1px solid var(--border-soft);
+    background: #fcfcfd;
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  /* Schedule popover */
+  .sched-popover {
+    position: fixed;
+    z-index: 95;
+    width: 312px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    animation: dropIn .13s ease-out;
+  }
+  .sp-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px 10px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .sp-head strong { font-size: 13.5px; font-weight: 650; }
+  .sp-week { margin-left: 6px; color: var(--muted); font-size: 11px; }
+  .sp-existing {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-height: 124px;
+    padding: 9px 14px 2px;
+    overflow-y: auto;
+  }
+  .sp-empty { padding: 3px 0; color: var(--muted); font-size: 11.5px; }
+  .sp-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 8px;
+    border-radius: 7px;
+    background: #f7f8fb;
+  }
+  .sp-time { flex: none; color: var(--accent); font-size: 11px; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .sp-company {
+    flex: none;
+    max-width: 96px;
+    font-size: 11.5px;
+    font-weight: 550;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sp-event {
+    flex: 1;
+    min-width: 0;
+    color: var(--muted);
+    font-size: 11.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sp-del {
+    flex: none;
+    width: 21px;
+    height: 21px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: #b1b6c2;
+  }
+  .sp-del:hover { background: #fdeeee; color: var(--danger); }
+  .sp-form { display: flex; flex-direction: column; gap: 7px; padding: 10px 14px 14px; }
+  .sp-field { display: flex; align-items: center; gap: 8px; }
+  .sp-field > label { flex: none; width: 30px; color: var(--muted); font-size: 11.5px; }
+  .sp-field input, .sp-field select {
+    flex: 1;
+    min-width: 0;
+    height: 31px;
+    padding: 0 8px;
+    border: 1px solid var(--border-strong);
+    border-radius: 7px;
+    background: #fff;
+    font-size: 12px;
+    outline: 0;
+  }
+  .sp-field input:focus, .sp-field select:focus {
+    border-color: #b0b0e8;
+    box-shadow: 0 0 0 2px rgba(91, 91, 214, .1);
+  }
+  .sp-save { width: 100%; height: 33px; margin-top: 2px; font-size: 12.5px; }
+
+  /* Table additions */
+  .company-stack { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .company-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--muted);
+    font-size: 10px;
+    white-space: nowrap;
+  }
+  .company-type .dot { width: 5px; height: 5px; }
+  .sched-cell { display: flex; flex-direction: column; min-width: 0; max-width: 132px; }
+  .sched-date { color: var(--text-2); font-size: 11.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .sched-event { color: var(--muted); font-size: 10.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .table-tools { display: flex; align-items: center; gap: 12px; }
+  .sort-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--muted);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+  .sort-select {
+    height: 28px;
+    padding: 0 6px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--text-2);
+    font-size: 11px;
+    cursor: pointer;
+    outline: 0;
+  }
+  .sort-select:focus { border-color: #b9b9eb; }
+
+  /* Modal schedules */
+  .modal-schedules { display: flex; flex-direction: column; gap: 6px; }
+  .ms-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 10px;
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    background: #fbfbfd;
+  }
+  .ms-date { flex: none; color: var(--text); font-size: 11.5px; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .ms-event { flex: 1; min-width: 0; color: var(--muted); font-size: 11.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ms-empty { padding: 2px 0; color: var(--muted); font-size: 11.5px; }
+  .ms-hint { margin: 6px 0 0; color: #a8adba; font-size: 10.5px; line-height: 1.5; }
+
+  /* Two distribution charts */
+  .charts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .charts-grid .chart-card { padding: 16px 18px 17px; }
+  .charts-grid .chart-head h2 { font-size: 14.5px; }
+  .charts-grid .chart-body { gap: 16px; padding: 8px 0 2px; }
+  .charts-grid .donut-wrap { width: 184px; height: 184px; }
+  .charts-grid .donut-center strong { font-size: 25px; }
+  .charts-grid .legend { gap: 6px; }
+  .charts-grid .legend li { padding: 7px 9px; }
+  .charts-grid .legend-name { font-size: 11.5px; }
+  .charts-grid .legend-count { font-size: 10px; }
+  .charts-grid .legend-pct { min-width: 30px; font-size: 11px; }
+  .charts-grid .legend-empty { padding: 18px 8px; font-size: 11.5px; }
+  .charts-grid .chart-head p { font-size: 11.5px; }
+  .charts-grid .chart-total { height: 24px; font-size: 11px; }
+
+  /* New responsive rules */
+  @media (max-width: 980px) {
+    .charts-grid { grid-template-columns: 1fr; }
+    .charts-grid .donut-wrap { width: 200px; height: 200px; }
+    .charts-grid .legend { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 900px) {
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .table-head { flex-wrap: wrap; }
+  }
+  @media (max-width: 720px) {
+    .timeline { min-width: 1036px; }
+    .timeline-head { padding: 0 14px 10px; }
+    .timeline-foot { padding: 8px 14px 11px; }
+    .table-tools { width: 100%; justify-content: space-between; }
+    .charts-grid .chart-body { flex-direction: column; align-items: center; gap: 12px; }
+    .charts-grid .legend { width: 100%; }
+    .sched-popover { width: min(312px, calc(100vw - 24px)); }
+    .timeline-range { width: 100%; margin: 0 0 2px; }
+    .timeline-controls { width: 100%; justify-content: flex-end; }
+  }
+  @media (max-width: 420px) {
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .stat:first-child { grid-column: auto; }
+    .stat { padding: 12px 13px 11px; }
+    .stat-value { font-size: 24px; }
+    .charts-grid .legend { grid-template-columns: 1fr; }
+    .tl-nav { height: 27px; min-width: 27px; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
   }
@@ -1032,6 +1360,29 @@
 
   <section class="stats" id="stats" aria-label="投递统计"></section>
 
+  <section class="card timeline-card">
+    <div class="timeline-head">
+      <div class="timeline-title">
+        <h2>面试日程</h2>
+        <p id="timelineMeta">近两周的面试与笔试安排</p>
+      </div>
+      <div class="timeline-controls">
+        <span class="timeline-range" id="timelineRange"></span>
+        <button class="tl-nav tl-today" id="tlToday" type="button">今天</button>
+        <button class="tl-nav" id="tlPrev" type="button" aria-label="向前翻一周">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"></path></svg>
+        </button>
+        <button class="tl-nav" id="tlNext" type="button" aria-label="向后翻一周">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div class="timeline-scroll">
+      <div class="timeline" id="timeline"></div>
+    </div>
+    <div class="timeline-foot">点击日期即可添加面试 / 笔试日程，日程会自动关联到对应的投递记录</div>
+  </section>
+
   <section class="card toolbar-card">
     <div class="toolbar">
       <div class="search">
@@ -1050,6 +1401,13 @@
             <svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg>
           </button>
           <div class="menu hidden" id="trackMenu" role="group" aria-label="按赛道筛选"></div>
+        </div>
+        <div class="dropdown" id="typeDropdown">
+          <button class="filter-btn" id="typeBtn" type="button" aria-haspopup="true" aria-expanded="false">
+            <span id="typeLabel">全部行业</span>
+            <svg class="chev" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <div class="menu hidden" id="typeMenu" role="group" aria-label="按公司类型筛选"></div>
         </div>
         <div class="dropdown" id="statusDropdown">
           <button class="filter-btn" id="statusFilterBtn" type="button" aria-haspopup="true" aria-expanded="false">
@@ -1073,7 +1431,17 @@
         <h2>投递记录</h2>
         <span class="table-meta" id="resultMeta"></span>
       </div>
-      <span class="table-note"><span class="dot-live"></span>数据仅存本地</span>
+      <div class="table-tools">
+        <label class="sort-control" for="sortSelect">排序
+          <select class="sort-select" id="sortSelect" aria-label="排序方式">
+            <option value="date_desc">投递日期 · 最新优先</option>
+            <option value="date_asc">投递日期 · 最早优先</option>
+            <option value="sched_desc">面试时间 · 最近优先</option>
+            <option value="sched_asc">面试时间 · 最早优先</option>
+          </select>
+        </label>
+        <span class="table-note"><span class="dot-live"></span>数据仅存本地</span>
+      </div>
     </div>
     <div class="table-wrap">
       <table class="table">
@@ -1084,6 +1452,7 @@
             <th>赛道</th>
             <th>状态</th>
             <th>投递日期</th>
+            <th>面试日程</th>
             <th>备注</th>
             <th>操作</th>
           </tr>
@@ -1094,25 +1463,47 @@
     </div>
   </section>
 
-  <section class="card chart-card">
-    <div class="chart-head">
-      <div>
-        <h2>投递赛道分布</h2>
-        <p>基于当前筛选结果实时更新</p>
-      </div>
-      <span class="chart-total" id="chartTotal"></span>
-    </div>
-    <div class="chart-body">
-      <div class="donut-wrap">
-        <svg id="donut" viewBox="0 0 220 220" role="img" aria-label="投递赛道分布饼图"></svg>
-        <div class="donut-center">
-          <strong id="donutNum">0</strong>
-          <span>条投递</span>
+  <div class="charts-grid">
+    <section class="card chart-card">
+      <div class="chart-head">
+        <div>
+          <h2>投递赛道分布</h2>
+          <p>基于当前筛选结果实时更新</p>
         </div>
+        <span class="chart-total" id="trackChartTotal"></span>
       </div>
-      <ul class="legend" id="legend"></ul>
-    </div>
-  </section>
+      <div class="chart-body">
+        <div class="donut-wrap">
+          <svg id="trackDonut" viewBox="0 0 220 220" role="img" aria-label="投递赛道分布饼图"></svg>
+          <div class="donut-center">
+            <strong id="trackDonutNum">0</strong>
+            <span>条投递</span>
+          </div>
+        </div>
+        <ul class="legend" id="trackLegend"></ul>
+      </div>
+    </section>
+
+    <section class="card chart-card">
+      <div class="chart-head">
+        <div>
+          <h2>公司类型分布</h2>
+          <p>跨行业投递复盘</p>
+        </div>
+        <span class="chart-total" id="typeChartTotal"></span>
+      </div>
+      <div class="chart-body">
+        <div class="donut-wrap">
+          <svg id="typeDonut" viewBox="0 0 220 220" role="img" aria-label="公司类型分布饼图"></svg>
+          <div class="donut-center">
+            <strong id="typeDonutNum">0</strong>
+            <span>条投递</span>
+          </div>
+        </div>
+        <ul class="legend" id="typeLegend"></ul>
+      </div>
+    </section>
+  </div>
 
   <footer class="page-foot">
     <span>Internship Tracker</span> · 所有数据保存在你的浏览器 localStorage 中，清除浏览器数据会丢失记录
@@ -1121,6 +1512,34 @@
 
 <div class="chart-tooltip hidden" id="chartTooltip" role="status"></div>
 <div class="status-menu hidden" id="statusMenu" role="menu"></div>
+
+<div class="sched-popover hidden" id="schedPopover">
+  <div class="sp-head">
+    <div>
+      <strong id="spDate"></strong>
+      <span class="sp-week" id="spWeek"></span>
+    </div>
+    <button class="icon-btn" id="spClose" type="button" aria-label="关闭日程浮层">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
+  </div>
+  <div class="sp-existing" id="spExisting"></div>
+  <div class="sp-form">
+    <div class="sp-field">
+      <label for="spTime">时间</label>
+      <input id="spTime" type="time" value="09:00" step="60">
+    </div>
+    <div class="sp-field">
+      <label for="spCompany">公司</label>
+      <select id="spCompany"></select>
+    </div>
+    <div class="sp-field">
+      <label for="spEvent">事件</label>
+      <input id="spEvent" type="text" maxlength="24" placeholder="如：一面 / 笔试" autocomplete="off">
+    </div>
+    <button class="btn btn-primary sp-save" id="spSave" type="button">添加日程</button>
+  </div>
+</div>
 
 <div class="overlay hidden" id="recordOverlay">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -1139,6 +1558,15 @@
           <label for="fCompany">公司名称 <span class="req">*</span></label>
           <input class="input" id="fCompany" type="text" placeholder="如：字节跳动" autocomplete="off" maxlength="40">
           <p class="err">请填写公司名称</p>
+        </div>
+        <div class="field">
+          <label for="fCompanyType">公司类型 <span class="req">*</span></label>
+          <div class="select-wrap">
+            <select class="select" id="fCompanyType"></select>
+            <span class="chev">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg>
+            </span>
+          </div>
         </div>
         <div class="field">
           <label for="fPosition">岗位名称 <span class="req">*</span></label>
@@ -1168,13 +1596,18 @@
           <input class="input" id="fDate" type="date">
           <p class="err">请选择投递日期</p>
         </div>
-        <div class="field">
+        <div class="field full">
           <label for="fLink">官网 / 链接</label>
           <input class="input" id="fLink" type="text" placeholder="https://（选填）" autocomplete="off" maxlength="300">
         </div>
         <div class="field full">
           <label for="fNotes">备注</label>
           <textarea class="textarea" id="fNotes" placeholder="内推码、面试重点、HR 联系方式…（选填）" maxlength="500"></textarea>
+        </div>
+        <div class="field full hidden" id="modalSchedulesWrap">
+          <label>面试日程</label>
+          <div class="modal-schedules" id="modalSchedules"></div>
+          <p class="ms-hint">在顶部时间轴点击日期，即可为这条记录添加新的面试 / 笔试安排</p>
         </div>
       </div>
       <div class="modal-foot">
@@ -1217,17 +1650,26 @@
 (function () {
   'use strict';
 
-  const STORAGE_KEY = 'internship-tracker.v1';
+  const STORAGE_KEY = 'internship-tracker.v2';
 
   const TRACKS = [
     { name: '前端开发', color: '#6366f1', bg: '#eef2ff' },
     { name: '后端开发', color: '#3b82f6', bg: '#eff6ff' },
-    { name: '客户端开发', color: '#06b6d4', bg: '#ecfeff' },
+    { name: '算法', color: '#ef4444', bg: '#fef2f2' },
     { name: '产品经理', color: '#f59e0b', bg: '#fffbeb' },
     { name: '运营', color: '#ec4899', bg: '#fdf2f8' },
     { name: '设计', color: '#a855f7', bg: '#faf5ff' },
     { name: '数据分析', color: '#10b981', bg: '#ecfdf5' },
-    { name: '算法', color: '#ef4444', bg: '#fef2f2' },
+    { name: '其他', color: '#64748b', bg: '#f8fafc' }
+  ];
+
+  const COMPANY_TYPES = [
+    { name: '互联网', color: '#6366f1', bg: '#eef2ff' },
+    { name: '券商/金融', color: '#f59e0b', bg: '#fffbeb' },
+    { name: '仪器/硬件', color: '#06b6d4', bg: '#ecfeff' },
+    { name: '咨询', color: '#a855f7', bg: '#faf5ff' },
+    { name: '快消', color: '#ec4899', bg: '#fdf2f8' },
+    { name: '能源/化工', color: '#10b981', bg: '#ecfdf5' },
     { name: '其他', color: '#64748b', bg: '#f8fafc' }
   ];
 
@@ -1257,16 +1699,52 @@
   };
 
   const SEED = [
-    { company: '字节跳动', position: '前端开发实习生', track: '前端开发', status: '面试中', date: '2023-10-01', link: 'https://jobs.bytedance.com', notes: '内推码 NTAKd3x，一面已过，准备二面' },
-    { company: '美团', position: '后端开发实习生', track: '后端开发', status: '已投递', date: '2023-10-02', link: 'https://zhaopin.meituan.com', notes: '内推码 MT2024，等待简历筛选' },
-    { company: '腾讯', position: '产品经理实习生', track: '产品经理', status: '未通过', date: '2023-09-28', link: '', notes: '群面未通过，复盘：案例拆解框架不够清晰' },
-    { company: '百度', position: '算法实习生', track: '算法', status: '笔试中', date: '2023-10-05', link: 'https://talent.baidu.com', notes: '笔试已完成，等待结果；重点复习动态规划' },
-    { company: '小红书', position: '设计实习生', track: '设计', status: '已录用', date: '2023-10-10', link: '', notes: '已发 Offer，10 月 20 日前确认入职时间' },
-    { company: '哔哩哔哩', position: '运营实习生', track: '运营', status: '已投递', date: '2023-10-11', link: 'https://jobs.bilibili.com', notes: '附作品集链接，等待面试通知' },
-    { company: '拼多多', position: '客户端开发实习生', track: '客户端开发', status: '笔试中', date: '2023-10-08', link: '', notes: '内推码 PD2023，笔试安排在周五晚上' },
-    { company: '阿里巴巴', position: '前端开发实习生', track: '前端开发', status: '面试中', date: '2023-09-25', link: 'https://talent.alibaba.com', notes: '三面已约，面试官关注工程化与性能优化' },
-    { company: '京东', position: '数据分析实习生', track: '数据分析', status: '已投递', date: '2023-10-12', link: 'https://campus.jd.com', notes: '官网直投，简历已进入评估' },
-    { company: '网易', position: '后端开发实习生', track: '后端开发', status: '未通过', date: '2023-10-03', link: '', notes: '二面后未通过，面试重点：JVM 与并发' }
+    {
+      company: '字节跳动', companyType: '互联网', position: '前端开发实习生', track: '前端开发',
+      status: '面试中', date: '2026-10-14', link: 'https://jobs.bytedance.com', notes: '内推码 NTAKd3x',
+      schedules: [{ date: '2026-10-25', time: '14:00', event: '一面' }]
+    },
+    {
+      company: '中信证券', companyType: '券商/金融', position: '数据分析实习生', track: '数据分析',
+      status: '笔试中', date: '2026-10-16', link: '', notes: '网申已通过，关注笔试成绩',
+      schedules: [{ date: '2026-10-26', time: '19:00', event: '笔试' }]
+    },
+    {
+      company: '安捷伦', companyType: '仪器/硬件', position: '嵌入式开发实习生', track: '其他',
+      status: '已投递', date: '2026-10-20', link: '', notes: '', schedules: []
+    },
+    {
+      company: '华为', companyType: '仪器/硬件', position: '后端开发实习生', track: '后端开发',
+      status: '已投递', date: '2026-10-19', link: '', notes: '官网直投，等待简历筛选', schedules: []
+    },
+    {
+      company: '招商银行', companyType: '券商/金融', position: '产品经理实习生', track: '产品经理',
+      status: '面试中', date: '2026-10-17', link: '', notes: '总行实习项目，准备业务案例分析',
+      schedules: [{ date: '2026-10-27', time: '10:00', event: '二面' }]
+    },
+    {
+      company: '腾讯', companyType: '互联网', position: '产品经理实习生', track: '产品经理',
+      status: '未通过', date: '2026-10-10', link: '', notes: '群面未通过，复盘案例拆解框架', schedules: []
+    },
+    {
+      company: '迈瑞医疗', companyType: '仪器/硬件', position: '算法实习生', track: '算法',
+      status: '已录用', date: '2026-10-09', link: '', notes: '已发 Offer，确认入职时间待沟通', schedules: []
+    },
+    {
+      company: '摩根斯坦利', companyType: '券商/金融', position: '后端开发实习生', track: '后端开发',
+      status: '笔试中', date: '2026-10-15', link: '', notes: '全英笔试，准备算法与 SQL',
+      schedules: [{ date: '2026-10-28', time: '20:00', event: '笔试' }]
+    },
+    {
+      company: '阿里巴巴', companyType: '互联网', position: '前端开发实习生', track: '前端开发',
+      status: '面试中', date: '2026-10-12', link: 'https://talent.alibaba.com', notes: '三面已约，关注工程化实践',
+      schedules: [{ date: '2026-10-25', time: '16:00', event: '三面' }]
+    },
+    {
+      company: '美团', companyType: '互联网', position: '运营实习生', track: '运营',
+      status: '已投递', date: '2026-10-21', link: 'https://zhaopin.meituan.com', notes: '内推码 MT2024',
+      schedules: []
+    }
   ];
 
   const $ = function (id) { return document.getElementById(id); };
@@ -1281,18 +1759,42 @@
   const trackLabel = $('trackLabel');
   const trackMenu = $('trackMenu');
   const trackDropdown = $('trackDropdown');
+  const typeBtn = $('typeBtn');
+  const typeLabel = $('typeLabel');
+  const typeMenu = $('typeMenu');
+  const typeDropdown = $('typeDropdown');
   const statusFilterBtn = $('statusFilterBtn');
   const statusLabel = $('statusLabel');
   const statusFilterMenu = $('statusFilterMenu');
   const statusDropdown = $('statusDropdown');
   const clearFiltersBtn = $('clearFilters');
+  const sortSelect = $('sortSelect');
   const addBtn = $('addBtn');
-  const donut = $('donut');
-  const donutNum = $('donutNum');
-  const legend = $('legend');
-  const chartTotal = $('chartTotal');
+  const timeline = $('timeline');
+  const timelineScroll = document.querySelector('.timeline-scroll');
+  const timelineRange = $('timelineRange');
+  const timelineMeta = $('timelineMeta');
+  const tlPrev = $('tlPrev');
+  const tlNext = $('tlNext');
+  const tlToday = $('tlToday');
+  const trackDonut = $('trackDonut');
+  const trackDonutNum = $('trackDonutNum');
+  const trackLegend = $('trackLegend');
+  const trackChartTotal = $('trackChartTotal');
+  const typeDonut = $('typeDonut');
+  const typeDonutNum = $('typeDonutNum');
+  const typeLegend = $('typeLegend');
+  const typeChartTotal = $('typeChartTotal');
   const chartTooltip = $('chartTooltip');
   const statusMenu = $('statusMenu');
+  const schedPopover = $('schedPopover');
+  const spDate = $('spDate');
+  const spWeek = $('spWeek');
+  const spExisting = $('spExisting');
+  const spTime = $('spTime');
+  const spCompany = $('spCompany');
+  const spEvent = $('spEvent');
+  const spSave = $('spSave');
   const saveBadge = $('saveBadge');
   const toastStack = $('toastStack');
 
@@ -1302,12 +1804,15 @@
   const modalSub = $('modalSub');
   const submitBtn = $('submitBtn');
   const fCompany = $('fCompany');
+  const fCompanyType = $('fCompanyType');
   const fPosition = $('fPosition');
   const fTrack = $('fTrack');
   const fStatus = $('fStatus');
   const fDate = $('fDate');
   const fLink = $('fLink');
   const fNotes = $('fNotes');
+  const modalSchedulesWrap = $('modalSchedulesWrap');
+  const modalSchedules = $('modalSchedules');
 
   const confirmOverlay = $('confirmOverlay');
   const confirmText = $('confirmText');
@@ -1316,7 +1821,11 @@
   let records = [];
   let editingId = null;
   let pendingDeleteId = null;
-  const filters = { query: '', tracks: new Set(), statuses: new Set() };
+  let activeScheduleDate = null;
+  let sortKey = 'date';
+  let sortDir = 'desc';
+  let timelineStart = '';
+  const filters = { query: '', tracks: new Set(), types: new Set(), statuses: new Set() };
 
   /* ---------- Helpers ---------- */
   function esc(value) {
@@ -1344,6 +1853,57 @@
     return STATUSES.find(function (s) { return s.name === name; }) || STATUSES[0];
   }
 
+  function typeMeta(name) {
+    return COMPANY_TYPES.find(function (t) { return t.name === name; }) || COMPANY_TYPES[COMPANY_TYPES.length - 1];
+  }
+
+  function pad2(n) {
+    return String(n).padStart(2, '0');
+  }
+
+  function isoDate(dateObj) {
+    const local = new Date(dateObj.getTime() - dateObj.getTimezoneOffset() * 60000);
+    return local.toISOString().slice(0, 10);
+  }
+
+  function parseISODate(iso) {
+    return new Date(iso + 'T12:00:00');
+  }
+
+  function addDaysISO(iso, count) {
+    const date = parseISODate(iso);
+    date.setDate(date.getDate() + count);
+    return isoDate(date);
+  }
+
+  function formatMonthDay(iso) {
+    const date = parseISODate(iso);
+    return (date.getMonth() + 1) + '月' + date.getDate() + '日';
+  }
+
+  function weekdayCN(date) {
+    return ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][date.getDay()];
+  }
+
+  function compareSchedule(a, b) {
+    return (a.date + ' ' + a.time).localeCompare(b.date + ' ' + b.time);
+  }
+
+  function displaySchedule(record) {
+    if (!record.schedules || !record.schedules.length) return null;
+    const list = record.schedules.slice().sort(compareSchedule);
+    const now = new Date();
+    const nowKey = todayISO() + ' ' + pad2(now.getHours()) + ':' + pad2(now.getMinutes());
+    return list.find(function (item) {
+      return (item.date + ' ' + item.time) >= nowKey;
+    }) || list[list.length - 1];
+  }
+
+  function scheduleSortValue(record) {
+    const schedule = displaySchedule(record);
+    return schedule ? schedule.date + ' ' + schedule.time : '';
+  }
+
   function normalizeUrl(raw) {
     const url = String(raw || '').trim();
     if (!url) return '';
@@ -1351,17 +1911,36 @@
     return 'https://' + url;
   }
 
+  function normalizeSchedules(list) {
+    if (!Array.isArray(list)) return [];
+    return list
+      .filter(function (item) {
+        return item && /^\d{4}-\d{2}-\d{2}$/.test(item.date || '');
+      })
+      .map(function (item) {
+        return {
+          id: String(item.id || uid()),
+          date: item.date,
+          time: /^\d{2}:\d{2}$/.test(item.time || '') ? item.time : '09:00',
+          event: String(item.event || '').trim() || '日程'
+        };
+      })
+      .sort(compareSchedule);
+  }
+
   function normalizeRecord(record) {
     const next = record || {};
     return {
       id: String(next.id || uid()),
       company: String(next.company || '').trim(),
+      companyType: COMPANY_TYPES.some(function (t) { return t.name === next.companyType; }) ? next.companyType : '其他',
       position: String(next.position || '').trim(),
       track: TRACKS.some(function (t) { return t.name === next.track; }) ? next.track : '其他',
       status: STATUSES.some(function (s) { return s.name === next.status; }) ? next.status : '已投递',
       date: /^\d{4}-\d{2}-\d{2}$/.test(next.date || '') ? next.date : todayISO(),
       link: String(next.link || '').trim(),
       notes: String(next.notes || '').trim(),
+      schedules: normalizeSchedules(next.schedules),
       createdAt: Number(next.createdAt) || Date.now()
     };
   }
@@ -1401,6 +1980,13 @@
     if (!ok) toast('本地存储不可用，刷新后数据可能丢失', 'danger');
   }
 
+  const SORT_META = {
+    date_desc: '按投递日期倒序',
+    date_asc: '按投递日期升序',
+    sched_desc: '按面试时间倒序',
+    sched_asc: '按面试时间升序'
+  };
+
   function getFiltered() {
     const query = filters.query.trim().toLowerCase();
     return records
@@ -1410,13 +1996,29 @@
           if (!haystack.includes(query)) return false;
         }
         if (filters.tracks.size && !filters.tracks.has(record.track)) return false;
+        if (filters.types.size && !filters.types.has(record.companyType)) return false;
         if (filters.statuses.size && !filters.statuses.has(record.status)) return false;
         return true;
       })
       .slice()
       .sort(function (a, b) {
-        const byDate = (b.date || '').localeCompare(a.date || '');
-        if (byDate !== 0) return byDate;
+        if (sortKey === 'date') {
+          const byDate = (a.date || '').localeCompare(b.date || '');
+          if (byDate !== 0) return sortDir === 'asc' ? byDate : -byDate;
+        } else {
+          const keyA = scheduleSortValue(a);
+          const keyB = scheduleSortValue(b);
+          if (keyA && keyB) {
+            const bySchedule = keyA.localeCompare(keyB);
+            if (bySchedule !== 0) return sortDir === 'asc' ? bySchedule : -bySchedule;
+          } else if (keyA) {
+            return -1;
+          } else if (keyB) {
+            return 1;
+          }
+          const byDate = (a.date || '').localeCompare(b.date || '');
+          if (byDate !== 0) return -byDate;
+        }
         return (b.createdAt || 0) - (a.createdAt || 0);
       });
   }
@@ -1426,20 +2028,17 @@
   }
 
   function hasActiveFilters() {
-    return !!(filters.tracks.size || filters.statuses.size || filters.query.trim());
+    return !!(filters.tracks.size || filters.types.size || filters.statuses.size || filters.query.trim());
   }
 
   /* ---------- Stats ---------- */
   function renderStats() {
     const total = records.length;
-    const applied = countStatus('已投递');
-    const testing = countStatus('笔试中');
     const interviewing = countStatus('面试中');
     const offers = countStatus('已录用');
     const closed = countStatus('未通过');
     const cards = [
       { label: '总投递数', value: total, tone: '#5b5bd6', bg: '#eeeefc', icon: ICONS.layers, sub: '全部投递记录' },
-      { label: '待处理', value: applied + testing, tone: '#3b82f6', bg: '#eff6ff', icon: ICONS.clock, sub: '已投递 ' + applied + ' · 笔试中 ' + testing },
       { label: '面试中', value: interviewing, tone: '#a855f7', bg: '#faf5ff', icon: ICONS.chat, sub: '等待面试结果' },
       { label: '已拿 Offer', value: offers, tone: '#22c55e', bg: '#f0fdf4', icon: ICONS.award, sub: '已录用' },
       { label: '已结束', value: closed, tone: '#ef4444', bg: '#fef2f2', icon: ICONS.xCircle, sub: '未通过 / 终止' }
@@ -1457,9 +2056,10 @@
 
   /* ---------- Table ---------- */
   function renderTable(filtered) {
-    resultMeta.textContent = hasActiveFilters()
-      ? filtered.length + ' / ' + records.length + ' 条记录 · 按投递日期倒序'
-      : '共 ' + records.length + ' 条记录 · 按投递日期倒序';
+    const sortMeta = SORT_META[sortKey + '_' + sortDir] || SORT_META.date_desc;
+    resultMeta.textContent = (hasActiveFilters()
+      ? filtered.length + ' / ' + records.length + ' 条记录'
+      : '共 ' + records.length + ' 条记录') + ' · ' + sortMeta;
 
     if (!filtered.length) {
       tableBody.innerHTML = '';
@@ -1483,7 +2083,18 @@
     emptyState.classList.add('hidden');
     tableBody.innerHTML = filtered.map(function (record) {
       const track = trackMeta(record.track);
+      const type = typeMeta(record.companyType);
       const status = statusMeta(record.status);
+      const schedule = displaySchedule(record);
+      const scheduleTitle = record.schedules.map(function (item) {
+        return item.date + ' ' + item.time + ' ' + item.event;
+      }).join('；');
+      const scheduleCell = schedule
+        ? '<span class="sched-cell" title="' + esc(scheduleTitle) + '">' +
+            '<span class="sched-date">' + esc(schedule.date.slice(5)) + ' ' + esc(schedule.time) + '</span>' +
+            '<span class="sched-event">' + esc(schedule.event) + (record.schedules.length > 1 ? ' · 共 ' + record.schedules.length + ' 项' : '') + '</span>' +
+          '</span>'
+        : '<span class="muted">—</span>';
       const notes = record.notes
         ? '<span class="note-cell" title="' + esc(record.notes) + '">' + esc(record.notes) + '</span>'
         : '<span class="note-cell muted">—</span>';
@@ -1493,11 +2104,12 @@
       const initial = esc(record.company.trim().charAt(0) || '·');
 
       return '<tr class="row" data-id="' + esc(record.id) + '">' +
-        '<td data-label="公司名称"><div class="company-cell"><span class="avatar" style="background:' + track.bg + ';color:' + track.color + '">' + initial + '</span><span class="company-name">' + esc(record.company) + '</span></div></td>' +
+        '<td data-label="公司名称"><div class="company-cell"><span class="avatar" style="background:' + type.bg + ';color:' + type.color + '">' + initial + '</span><span class="company-stack"><span class="company-name">' + esc(record.company) + '</span><span class="company-type"><span class="dot" style="background:' + type.color + '"></span>' + esc(record.companyType) + '</span></span></div></td>' +
         '<td data-label="岗位"><span class="position-cell">' + esc(record.position) + '</span></td>' +
         '<td data-label="赛道"><span class="track-badge" style="--c:' + track.color + ';--cbg:' + track.bg + '"><span class="dot" style="background:' + track.color + '"></span>' + esc(record.track) + '</span></td>' +
         '<td data-label="状态"><button class="status-pill" type="button" data-action="status" title="点击快速切换状态" style="--c:' + status.color + ';--cbg:' + status.bg + '"><span class="dot" style="background:' + status.color + '"></span>' + esc(record.status) + ICONS.chevron + '</button></td>' +
         '<td data-label="投递日期"><span class="date-cell">' + esc(record.date) + '</span></td>' +
+        '<td data-label="面试日程">' + scheduleCell + '</td>' +
         '<td data-label="备注">' + notes + '</td>' +
         '<td data-label="操作"><div class="actions">' + linkBtn +
           '<button class="icon-btn" type="button" data-action="edit" title="编辑记录" aria-label="编辑记录">' + ICONS.edit + '</button>' +
@@ -1540,28 +2152,28 @@
     chartTooltip.classList.add('hidden');
   }
 
-  function renderChart(filtered) {
+  function renderDistribution(config, filtered) {
     hideTooltip();
     const total = filtered.length;
-    const counts = TRACKS
-      .map(function (track) {
+    const counts = config.categories
+      .map(function (category) {
         return {
-          name: track.name,
-          color: track.color,
-          count: filtered.filter(function (r) { return r.track === track.name; }).length
+          name: category.name,
+          color: category.color,
+          count: filtered.filter(function (r) { return r[config.field] === category.name; }).length
         };
       })
       .filter(function (item) { return item.count > 0; })
       .sort(function (a, b) { return b.count - a.count; });
 
-    donutNum.textContent = total;
-    chartTotal.textContent = total
-      ? '共 ' + total + ' 条 · ' + counts.length + ' 个赛道'
+    config.numEl.textContent = total;
+    config.totalEl.textContent = total
+      ? '共 ' + total + ' 条 · ' + counts.length + ' ' + config.unit
       : '暂无数据';
 
     if (!total) {
-      donut.innerHTML = '<circle cx="110" cy="110" r="72" fill="none" stroke="#eef0f4" stroke-width="32"/>';
-      legend.innerHTML = '<li class="legend-empty">当前筛选下暂无投递数据</li>';
+      config.donut.innerHTML = '<circle cx="110" cy="110" r="72" fill="none" stroke="#eef0f4" stroke-width="32"/>';
+      config.legend.innerHTML = '<li class="legend-empty">当前筛选下暂无投递数据</li>';
       return;
     }
 
@@ -1574,13 +2186,13 @@
       angle += span;
       const ratio = item.count / total;
       return '<path class="seg" d="' + arcPath(110, 110, 88, 56, a0, a1) + '" fill="' + item.color +
-        '" stroke="#ffffff" stroke-width="2" data-track="' + esc(item.name) +
+        '" stroke="#ffffff" stroke-width="2" data-name="' + esc(item.name) +
         '" data-count="' + item.count + '" data-pct="' + pctLabel(ratio) + '"></path>';
     }).join('');
 
-    donut.innerHTML = segments;
+    config.donut.innerHTML = segments;
 
-    legend.innerHTML = counts.map(function (item) {
+    config.legend.innerHTML = counts.map(function (item) {
       const ratio = item.count / total;
       return '<li><span class="dot" style="background:' + item.color + '"></span>' +
         '<span class="legend-name">' + esc(item.name) + '</span>' +
@@ -1588,11 +2200,11 @@
         '<span class="legend-pct">' + pctLabel(ratio) + '</span></li>';
     }).join('');
 
-    donut.querySelectorAll('.seg').forEach(function (seg) {
+    config.donut.querySelectorAll('.seg').forEach(function (seg) {
       seg.addEventListener('mouseenter', function () {
         chartTooltip.innerHTML =
           '<div class="tt-name"><span class="dot" style="background:' + (seg.getAttribute('fill') || '#fff') + '"></span>' +
-          esc(seg.dataset.track) + '</div>' +
+          esc(seg.dataset.name) + '</div>' +
           '<div class="tt-row"><span>' + esc(seg.dataset.count) + ' 条投递</span><strong>' + esc(seg.dataset.pct) + '</strong></div>';
         chartTooltip.classList.remove('hidden');
       });
@@ -1608,20 +2220,224 @@
     });
   }
 
+  function renderCharts(filtered) {
+    renderDistribution({
+      donut: trackDonut,
+      numEl: trackDonutNum,
+      legend: trackLegend,
+      totalEl: trackChartTotal,
+      categories: TRACKS,
+      field: 'track',
+      unit: '个赛道'
+    }, filtered);
+    renderDistribution({
+      donut: typeDonut,
+      numEl: typeDonutNum,
+      legend: typeLegend,
+      totalEl: typeChartTotal,
+      categories: COMPANY_TYPES,
+      field: 'companyType',
+      unit: '个行业'
+    }, filtered);
+  }
+
+  /* ---------- Timeline ---------- */
+  function scheduleEntriesForDate(day) {
+    const items = [];
+    records.forEach(function (record) {
+      (record.schedules || []).forEach(function (schedule) {
+        if (schedule.date === day) items.push({ record: record, schedule: schedule });
+      });
+    });
+    items.sort(function (a, b) { return a.schedule.time.localeCompare(b.schedule.time); });
+    return items;
+  }
+
+  function renderTimeline() {
+    if (!timelineStart) timelineStart = addDaysISO(todayISO(), -10);
+    const today = todayISO();
+    const days = [];
+    for (let i = 0; i < 14; i += 1) days.push(addDaysISO(timelineStart, i));
+    const totalEvents = days.reduce(function (sum, day) {
+      return sum + scheduleEntriesForDate(day).length;
+    }, 0);
+
+    timelineRange.textContent = formatMonthDay(days[0]) + ' – ' + formatMonthDay(days[13]);
+    timelineMeta.textContent = totalEvents
+      ? '这 14 天共 ' + totalEvents + ' 个面试 / 笔试安排'
+      : '这 14 天暂无面试 / 笔试安排';
+
+    timeline.innerHTML = days.map(function (day) {
+      const date = parseISODate(day);
+      const isToday = day === today;
+      const weekend = date.getDay() === 0 || date.getDay() === 6;
+      const items = scheduleEntriesForDate(day);
+      const weekLabel = isToday ? '今天' : weekdayCN(date);
+      const dots = items.slice(0, 4).map(function (item) {
+        return '<span class="tl-dot" style="background:' + statusMeta(item.record.status).color + '" title="' +
+          esc(item.schedule.time + ' ' + item.record.company + ' ' + item.schedule.event) + '"></span>';
+      }).join('');
+      const more = items.length > 4 ? '<span class="tl-more">+' + (items.length - 4) + '</span>' : '';
+      const summary = items.length
+        ? esc(items[0].schedule.time + ' ' + items[0].record.company + ' · ' + items[0].schedule.event)
+        : '添加日程';
+      const label = formatMonthDay(day) + ' ' + weekLabel + '，' + (items.length ? items.length + ' 个日程' : '暂无日程，点击添加');
+
+      return '<button class="tl-day' + (isToday ? ' today' : '') + (weekend ? ' weekend' : '') +
+        '" type="button" data-date="' + day + '" aria-label="' + esc(label) + '">' +
+        '<span class="tl-top"><span class="tl-week">' + weekLabel + '</span>' +
+        '<span class="tl-month">' + (date.getMonth() + 1) + '/' + date.getDate() + '</span></span>' +
+        '<span class="tl-num">' + date.getDate() + '</span>' +
+        '<span class="tl-events">' +
+        (items.length ? '<span class="tl-dots">' + dots + more + '</span>' : '') +
+        '<span class="tl-sum' + (items.length ? '' : ' tl-sum-empty') + '">' + summary + '</span>' +
+        '</span>' +
+        '<span class="tl-plus" aria-hidden="true">+</span>' +
+        '</button>';
+    }).join('');
+  }
+
+  function focusTodayInTimeline() {
+    const todayEl = timeline.querySelector('.tl-day.today');
+    if (!todayEl) return;
+    const elRect = todayEl.getBoundingClientRect();
+    const boxRect = timelineScroll.getBoundingClientRect();
+    timelineScroll.scrollLeft += elRect.left - boxRect.left - (boxRect.width - elRect.width) / 2;
+  }
+
+  /* ---------- Schedule popover ---------- */
+  function populateScheduleCompanies(preferredId) {
+    if (!records.length) {
+      spCompany.innerHTML = '<option value="">暂无投递记录</option>';
+      spCompany.disabled = true;
+      return;
+    }
+    spCompany.disabled = false;
+    spCompany.innerHTML = records.map(function (record) {
+      return '<option value="' + esc(record.id) + '">' +
+        esc(record.company) + ' · ' + esc(record.position) + '</option>';
+    }).join('');
+    if (preferredId && records.some(function (record) { return record.id === preferredId; })) {
+      spCompany.value = preferredId;
+    }
+  }
+
+  function renderPopoverExisting() {
+    if (!activeScheduleDate) return;
+    const items = scheduleEntriesForDate(activeScheduleDate);
+    if (!items.length) {
+      spExisting.innerHTML = '<div class="sp-empty">当天暂无日程，可在下方添加</div>';
+      return;
+    }
+    spExisting.innerHTML = items.map(function (item) {
+      const color = statusMeta(item.record.status).color;
+      return '<div class="sp-item" data-record="' + esc(item.record.id) + '" data-schedule="' + esc(item.schedule.id) + '">' +
+        '<span class="dot" style="background:' + color + '"></span>' +
+        '<span class="sp-time">' + esc(item.schedule.time) + '</span>' +
+        '<span class="sp-company">' + esc(item.record.company) + '</span>' +
+        '<span class="sp-event">' + esc(item.schedule.event) + '</span>' +
+        '<button class="sp-del" type="button" data-del-schedule="1" aria-label="删除该日程" title="删除日程">' + ICONS.trash + '</button>' +
+        '</div>';
+    }).join('');
+  }
+
+  function positionPopover(anchor) {
+    if (!anchor) return;
+    const rect = anchor.getBoundingClientRect();
+    const width = schedPopover.offsetWidth;
+    const height = schedPopover.offsetHeight;
+    let left = rect.left + rect.width / 2 - width / 2;
+    left = Math.max(10, Math.min(left, window.innerWidth - width - 10));
+    let top = rect.bottom + 8;
+    if (top + height > window.innerHeight - 10) top = Math.max(10, rect.top - height - 8);
+    schedPopover.style.left = left + 'px';
+    schedPopover.style.top = top + 'px';
+  }
+
+  function openSchedulePopover(day, anchor) {
+    if (!day) return;
+    activeScheduleDate = day;
+    closeDropdowns();
+    closeStatusMenu();
+    hideTooltip();
+
+    const previous = spCompany.value;
+    spDate.textContent = formatMonthDay(day);
+    spWeek.textContent = weekdayCN(parseISODate(day)) + (day === todayISO() ? ' · 今天' : '');
+    spTime.value = '09:00';
+    spEvent.value = '';
+    populateScheduleCompanies(previous);
+    renderPopoverExisting();
+    schedPopover.classList.remove('hidden');
+    positionPopover(anchor);
+    setTimeout(function () { spEvent.focus(); }, 40);
+  }
+
+  function closeSchedulePopover() {
+    schedPopover.classList.add('hidden');
+    activeScheduleDate = null;
+  }
+
+  function refreshSchedulePopover() {
+    const day = activeScheduleDate;
+    render();
+    renderPopoverExisting();
+    if (day) positionPopover(timeline.querySelector('.tl-day[data-date="' + day + '"]'));
+  }
+
+  function saveSchedule() {
+    if (!activeScheduleDate) return;
+    const record = records.find(function (r) { return r.id === spCompany.value; });
+    if (!record) {
+      toast('请先选择要关联的投递记录', 'danger');
+      return;
+    }
+    const time = /^\d{2}:\d{2}$/.test(spTime.value) ? spTime.value : '09:00';
+    const event = spEvent.value.trim() || '日程';
+    const conflict = record.schedules.some(function (item) {
+      return item.date === activeScheduleDate && item.time === time;
+    });
+    if (conflict) {
+      toast('该公司在 ' + time + ' 已有日程，请调整时间', 'danger');
+      return;
+    }
+
+    record.schedules.push({ id: uid(), date: activeScheduleDate, time: time, event: event });
+    record.schedules.sort(compareSchedule);
+    save();
+    spEvent.value = '';
+    refreshSchedulePopover();
+    toast('已添加「' + record.company + ' · ' + time + ' ' + event + '」');
+  }
+
+  function deleteSchedule(recordId, scheduleId) {
+    const record = records.find(function (r) { return r.id === recordId; });
+    if (!record) return;
+    record.schedules = record.schedules.filter(function (item) { return item.id !== scheduleId; });
+    save();
+    refreshSchedulePopover();
+    toast('日程已删除', 'danger');
+  }
+
   /* ---------- Toolbar state ---------- */
   function syncFilterMenus() {
-    trackMenu.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
-      cb.checked = filters.tracks.has(cb.value);
-    });
-    statusFilterMenu.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
-      cb.checked = filters.statuses.has(cb.value);
+    [
+      [trackMenu, filters.tracks],
+      [typeMenu, filters.types],
+      [statusFilterMenu, filters.statuses]
+    ].forEach(function (pair) {
+      pair[0].querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+        cb.checked = pair[1].has(cb.value);
+      });
     });
   }
 
   function updateToolbar() {
     trackLabel.textContent = filters.tracks.size ? '赛道 · ' + filters.tracks.size : '全部赛道';
+    typeLabel.textContent = filters.types.size ? '行业 · ' + filters.types.size : '全部行业';
     statusLabel.textContent = filters.statuses.size ? '状态 · ' + filters.statuses.size : '全部状态';
     trackBtn.classList.toggle('active', filters.tracks.size > 0);
+    typeBtn.classList.toggle('active', filters.types.size > 0);
     statusFilterBtn.classList.toggle('active', filters.statuses.size > 0);
     searchClear.classList.toggle('hidden', !searchInput.value);
     clearFiltersBtn.classList.toggle('hidden', !hasActiveFilters());
@@ -1629,10 +2445,13 @@
 
   function closeDropdowns() {
     trackDropdown.classList.remove('open');
+    typeDropdown.classList.remove('open');
     statusDropdown.classList.remove('open');
     trackBtn.setAttribute('aria-expanded', 'false');
+    typeBtn.setAttribute('aria-expanded', 'false');
     statusFilterBtn.setAttribute('aria-expanded', 'false');
     trackMenu.classList.add('hidden');
+    typeMenu.classList.add('hidden');
     statusFilterMenu.classList.add('hidden');
   }
 
@@ -1643,6 +2462,7 @@
   function clearAllFilters() {
     filters.query = '';
     filters.tracks.clear();
+    filters.types.clear();
     filters.statuses.clear();
     searchInput.value = '';
     syncFilterMenus();
@@ -1655,15 +2475,16 @@
     renderStats();
     updateToolbar();
     renderTable(filtered);
-    renderChart(filtered);
+    renderTimeline();
+    renderCharts(filtered);
   }
 
   /* ---------- Filter menus ---------- */
   function buildFilterMenu(menuEl, items, scope) {
-    const title = scope === 'track' ? '按赛道筛选' : '按状态筛选';
+    const titles = { track: '按赛道筛选', type: '按公司类型筛选', status: '按状态筛选' };
     menuEl.dataset.scope = scope;
     menuEl.innerHTML =
-      '<div class="menu-head">' + title + '（可多选）</div>' +
+      '<div class="menu-head">' + (titles[scope] || '筛选') + '（可多选）</div>' +
       items.map(function (item) {
         return '<label class="menu-item">' +
           '<input type="checkbox" value="' + esc(item.name) + '">' +
@@ -1676,6 +2497,9 @@
   }
 
   function populateSelects() {
+    fCompanyType.innerHTML = COMPANY_TYPES.map(function (type) {
+      return '<option value="' + esc(type.name) + '">' + esc(type.name) + '</option>';
+    }).join('');
     fTrack.innerHTML = TRACKS.map(function (track) {
       return '<option value="' + esc(track.name) + '">' + esc(track.name) + '</option>';
     }).join('');
@@ -1706,6 +2530,27 @@
     });
   }
 
+  function renderModalSchedules() {
+    if (!editingId) {
+      modalSchedulesWrap.classList.add('hidden');
+      modalSchedules.innerHTML = '';
+      return;
+    }
+    const record = records.find(function (r) { return r.id === editingId; });
+    modalSchedulesWrap.classList.remove('hidden');
+    if (!record || !record.schedules.length) {
+      modalSchedules.innerHTML = '<div class="ms-empty">暂无日程，可在顶部时间轴点击日期添加</div>';
+      return;
+    }
+    modalSchedules.innerHTML = record.schedules.map(function (item) {
+      return '<div class="ms-item">' +
+        '<span class="ms-date">' + esc(item.date.slice(5).replace('-', '/')) + ' ' + esc(item.time) + '</span>' +
+        '<span class="ms-event">' + esc(item.event) + '</span>' +
+        '<button class="sp-del" type="button" data-ms-del="' + esc(item.id) + '" aria-label="删除该日程" title="删除日程">' + ICONS.trash + '</button>' +
+        '</div>';
+    }).join('');
+  }
+
   function openRecordModal(id) {
     editingId = id || null;
     clearFieldErrors();
@@ -1718,6 +2563,7 @@
       modalSub.textContent = '更新这家公司的投递信息';
       submitBtn.textContent = '保存修改';
       fCompany.value = record.company;
+      fCompanyType.value = record.companyType;
       fPosition.value = record.position;
       fTrack.value = record.track;
       fStatus.value = record.status;
@@ -1728,11 +2574,13 @@
       modalTitle.textContent = '新增投递';
       modalSub.textContent = '记录一家新的公司投递，进度随时更新';
       submitBtn.textContent = '添加投递';
+      fCompanyType.value = '互联网';
       fDate.value = todayISO();
       fTrack.value = '前端开发';
       fStatus.value = '已投递';
     }
 
+    renderModalSchedules();
     recordOverlay.classList.remove('hidden');
     document.body.classList.add('modal-open');
     setTimeout(function () { fCompany.focus(); }, 60);
@@ -1772,6 +2620,7 @@
 
     const payload = {
       company: company,
+      companyType: fCompanyType.value || '其他',
       position: position,
       track: fTrack.value || '其他',
       status: fStatus.value || '已投递',
@@ -1789,7 +2638,7 @@
       render();
       toast('已保存「' + company + '」的修改');
     } else {
-      records.push(Object.assign({ id: uid(), createdAt: Date.now() }, payload));
+      records.push(Object.assign({ id: uid(), createdAt: Date.now(), schedules: [] }, payload));
       save();
       closeRecordModal();
       render();
@@ -1881,6 +2730,17 @@
     }
   });
 
+  typeBtn.addEventListener('click', function (event) {
+    event.stopPropagation();
+    const isOpen = typeDropdown.classList.contains('open');
+    closeDropdowns();
+    if (!isOpen) {
+      typeDropdown.classList.add('open');
+      typeBtn.setAttribute('aria-expanded', 'true');
+      typeMenu.classList.remove('hidden');
+    }
+  });
+
   statusFilterBtn.addEventListener('click', function (event) {
     event.stopPropagation();
     const isOpen = statusDropdown.classList.contains('open');
@@ -1892,11 +2752,17 @@
     }
   });
 
-  [trackMenu, statusFilterMenu].forEach(function (menu) {
+  const FILTER_SETS = {
+    track: filters.tracks,
+    type: filters.types,
+    status: filters.statuses
+  };
+
+  [trackMenu, typeMenu, statusFilterMenu].forEach(function (menu) {
     menu.addEventListener('change', function (event) {
       const checkbox = event.target.closest('input[type="checkbox"]');
       if (!checkbox) return;
-      const set = menu.dataset.scope === 'track' ? filters.tracks : filters.statuses;
+      const set = FILTER_SETS[menu.dataset.scope];
       if (checkbox.checked) set.add(checkbox.value);
       else set.delete(checkbox.value);
       updateToolbar();
@@ -1906,7 +2772,7 @@
     menu.addEventListener('click', function (event) {
       const bulk = event.target.closest('button[data-bulk]');
       if (!bulk) return;
-      const set = menu.dataset.scope === 'track' ? filters.tracks : filters.statuses;
+      const set = FILTER_SETS[menu.dataset.scope];
       const boxes = menu.querySelectorAll('input[type="checkbox"]');
       if (bulk.dataset.bulk === 'all') {
         boxes.forEach(function (box) { set.add(box.value); });
@@ -1918,6 +2784,13 @@
       updateToolbar();
       render();
     });
+  });
+
+  sortSelect.addEventListener('change', function () {
+    const parts = sortSelect.value.split('_');
+    sortKey = parts[0] === 'sched' ? 'schedule' : 'date';
+    sortDir = parts[1] === 'asc' ? 'asc' : 'desc';
+    render();
   });
 
   clearFiltersBtn.addEventListener('click', clearAllFilters);
@@ -1934,6 +2807,59 @@
 
   recordOverlay.addEventListener('mousedown', function (event) {
     if (event.target === recordOverlay) closeRecordModal();
+  });
+
+  modalSchedules.addEventListener('click', function (event) {
+    const del = event.target.closest('[data-ms-del]');
+    if (!del || !editingId) return;
+    const record = records.find(function (r) { return r.id === editingId; });
+    if (!record) return;
+    record.schedules = record.schedules.filter(function (item) {
+      return item.id !== del.getAttribute('data-ms-del');
+    });
+    save();
+    renderModalSchedules();
+    render();
+    toast('日程已删除', 'danger');
+  });
+
+  /* ---------- Timeline & schedule popover events ---------- */
+  timeline.addEventListener('click', function (event) {
+    const day = event.target.closest('.tl-day');
+    if (!day) return;
+    openSchedulePopover(day.getAttribute('data-date'), day);
+  });
+
+  tlPrev.addEventListener('click', function () {
+    timelineStart = addDaysISO(timelineStart || addDaysISO(todayISO(), -10), -7);
+    renderTimeline();
+  });
+
+  tlNext.addEventListener('click', function () {
+    timelineStart = addDaysISO(timelineStart || addDaysISO(todayISO(), -10), 7);
+    renderTimeline();
+  });
+
+  tlToday.addEventListener('click', function () {
+    timelineStart = addDaysISO(todayISO(), -10);
+    renderTimeline();
+    focusTodayInTimeline();
+  });
+
+  $('spClose').addEventListener('click', closeSchedulePopover);
+  spSave.addEventListener('click', saveSchedule);
+
+  spEvent.addEventListener('keydown', function (event) {
+    if (event.key !== 'Enter') return;
+    event.preventDefault();
+    saveSchedule();
+  });
+
+  spExisting.addEventListener('click', function (event) {
+    const del = event.target.closest('[data-del-schedule]');
+    const item = del ? del.closest('.sp-item') : null;
+    if (!item) return;
+    deleteSchedule(item.getAttribute('data-record'), item.getAttribute('data-schedule'));
   });
 
   $('confirmClose').addEventListener('click', closeConfirm);
@@ -1984,27 +2910,39 @@
   document.addEventListener('click', function (event) {
     if (!event.target.closest('.dropdown')) closeDropdowns();
     if (!event.target.closest('#statusMenu') && !event.target.closest('[data-action="status"]')) closeStatusMenu();
+    if (!event.target.closest('#schedPopover') && !event.target.closest('.tl-day')) closeSchedulePopover();
   });
 
   document.addEventListener('keydown', function (event) {
     if (event.key !== 'Escape') return;
     closeDropdowns();
     closeStatusMenu();
+    closeSchedulePopover();
     hideTooltip();
     if (!confirmOverlay.classList.contains('hidden')) closeConfirm();
     else if (!recordOverlay.classList.contains('hidden')) closeRecordModal();
   });
 
-  window.addEventListener('resize', function () { closeStatusMenu(); hideTooltip(); });
-  window.addEventListener('scroll', function () { closeStatusMenu(); }, true);
+  window.addEventListener('resize', function () {
+    closeStatusMenu();
+    closeSchedulePopover();
+    hideTooltip();
+  });
+  window.addEventListener('scroll', function () {
+    closeStatusMenu();
+    closeSchedulePopover();
+  }, true);
 
   /* ---------- Init ---------- */
   records = loadRecords();
+  timelineStart = addDaysISO(todayISO(), -10);
   buildFilterMenu(trackMenu, TRACKS, 'track');
+  buildFilterMenu(typeMenu, COMPANY_TYPES, 'type');
   buildFilterMenu(statusFilterMenu, STATUSES, 'status');
   populateSelects();
   updateToolbar();
   render();
+  focusTodayInTimeline();
   try {
     if (!localStorage.getItem(STORAGE_KEY)) persist();
   } catch (err) {
